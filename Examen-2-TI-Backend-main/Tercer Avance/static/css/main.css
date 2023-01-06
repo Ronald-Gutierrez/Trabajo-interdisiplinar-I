@@ -1,0 +1,22 @@
+body {
+    background: #2de236;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #4daceb, #2de27e);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #4daceb, #2de236); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
+  }
+thead {
+    background: #2de236;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #4daceb, #da3357);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #4daceb, #da3357); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: #131313;
+  }
+.card-header{
+  color: #ffffff;
+  background: #ff0000;
+}
+button{
+  color: #000000;
+  background: #ff0000;
+}
+
+

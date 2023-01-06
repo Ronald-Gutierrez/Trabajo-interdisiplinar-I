@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% with messages =get_flashed_messages() %}<!--mensajes posibles del servidor a traves del mensaje flash, esto se puede hacer gracias al flask-->
+{% if messages%}<!--Si hay mensajes ,messages sera un arreglo y se recorrera por el sgte for-->
+{% for message in messages %}<!--iterador message al arreglo messages, por cada recorrido mostraremos cada mensaje en un texto-->
+<p>{{message}}</p>
+{%  endfor %}
+{%  endif %}
+{%  endwith %}
+
+<!--este archivo nos permite enviar los datos para ser ingresados a la BDD-->
+<form action="/add_contact" method="POST"><!--Enviaremos los datos a la ruta add contact-->
+    <input type="text" name="cui" placeholder="cui">
+    <input type="password" name="password" placeholder="password">
+    <button type="submit">
+        Save
+    </button>
+    
+
+</form>
+<table>
+    <thead>
+        <tr>
+            <td>cui</td>
+            <td>password</td>
+            <!--Esta fila siguiente es para colocar los botones de eliminar-->
+            <td>Opciones</td>
+
+        </tr>
+
+    </thead>
+    <tbody><!--con tbody llenaremos los elementos que vienen de la base de datos,pero antes haremos la consulta desde el App.py-->
+        {% for users in user %}
+        <tr>
+            <td>{{users.1}}</td><!--esto me ayuda a mostrar el primer valro de la columna de cada seccion curso horario ,etc mostrandome los datos almacenados-->
+            <td>{{users.2}}</td>
+            <td><!--estos seran botones que luciran como enlaces para editar o eliminar -->
+                <a href="/edit/{{users.0}}">Editar</a>
+                <a href="/delete/{{users.0}}">Eliminar</a>
+            </td>
+            <td>
+
+            </td>
+        </tr>
+        {% endfor%}
+    </tbody>
+</table>

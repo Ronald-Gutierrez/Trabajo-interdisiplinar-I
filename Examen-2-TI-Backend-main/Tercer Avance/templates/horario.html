@@ -1,0 +1,135 @@
+{% extends "layout.html" %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <script src="static/js/validar.js"></script>
+</head>
+<div class="row">
+    <div class="col-md-5">
+      {% with messages = get_flashed_messages()  %}
+      {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div> 
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+      <div class="card card-body">
+        <form action="{{url_for('add_contact')}}" method="POST" onsubmit="return validar();">
+          <div class="form-group">
+            <input type="text" id="nombre" class="form-control" name="curso" placeholder="Ingrese un curso"  >
+          </div>
+          <div class="form-group">
+            <select name="dia" class="form-control">
+                <option value="Lunes">Lunes</option>
+                <option value="Martes" >Martes</option>
+                <option value="Miercoles">Miercoles</option>
+                <option value="Jueves">Jueves</option>
+                <option value="Viernes">Viernes</option>
+            </select>
+          </div>
+        </label>Hora de inicio: </label> <br/>
+        <select id = "hora_inicio" name="hora_inicio" class="form-control">
+          <option value="7:00">7:00</option>
+          <option value="7:50">7:50</option>
+          <option value="8:50">8:50</option>
+          <option value="9:40">9:40</option>
+          <option value="10:40">10:40</option>
+          <option value="11:30">11:30</option>
+          <option value="12:20">12:20</option>
+          <option value="13:10">13:10</option>
+          <option value="14:00">14:00</option>
+          <option value="14:50">14:50</option>
+          <option value="15:50">15:50</option>
+          <option value="16:40">16:40</option>
+          <option value="17:40">17:40</option>
+          <option value="18:30">18:30</option>
+          <option value="19:30">19:30</option>
+
+        </select>
+          <div class="form-group">
+          </label>Hora final: </label> <br/>
+          <select  id = "hora_final" name="hora_final" class="form-control">
+          <option value="7:50">7:50</option>
+          <option value="8:40">8:40</option>
+          <option value="9:40">9:40</option>
+          <option value="10:30">10:30</option>
+          <option value="11:30">11:30</option>
+          <option value="12:20">12:20</option>
+          <option value="13:10">13:10</option>
+          <option value="14:00">14:00</option>
+          <option value="14:50">14:50</option>
+          <option value="15:40">15:40</option>
+          <option value="16:40">16:40</option>
+          <option value="17:30">17:30</option>
+          <option value="18:30">18:30</option>
+          <option value="19:20">19:30</option>
+          <option value="20:20">20:20</option>
+          </select>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="profesor" placeholder="Ingrese el nombre del profesor">
+          </div>
+          <div class="form-group">
+            <label for="grupo">
+            </label>Grupo: </label> <br/>
+              <select name="grupo" class="form-control">
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+              </select>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block" style="background:rgb(70, 70, 70)">
+            Guardar
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="col-md-7">
+      <table class="table table-striped table-hover table-bordered table-sm bg-white">
+        <thead>
+          <tr>
+            <td>Curso</td>
+            <td>Dia(s)</td>
+            <td>Hora de inicio</td>
+            <td>Hora de fin</td>
+            <td>Profesor(a)</td>
+            <td>Grupo</td>
+            <!--Esta fila siguiente es para colocar los botones de eliminar-->
+            <td>Opciones</td>
+          </tr>
+        </thead>
+        <tbody><!--con tbody llenaremos los elementos que vienen de la base de datos,pero antes haremos la consulta desde el App.py-->
+          {% for horario in horarios %}
+          <tr>
+              <td>{{horario['curso']}}</td><!--esto me ayuda a mostrar el primer valro de la columna de cada seccion curso horario ,etc mostrandome los datos almacenados-->
+              <td>{{horario['dia']}}</td>
+              <td>{{horario['hora_inicio']}}</td>
+              <td>{{horario['hora_final']}}</td>
+              <td>{{horario['profesor']}}</td>
+              <td>{{horario['grupo']}}</td>
+              <td><!--estos seran botones que luciran como enlaces para editar o eliminar -->
+                  <a href="/delete/{{horario['id']}}">Eliminar</a>
+              </td>
+  
+          </tr>
+          {% endfor%}
+        </tbody>
+      </table>
+      <div>
+        <a href="/comprobacion">
+        <button  style="top: 74.7%" type="submit" class="btn btn-primary btn-block" style="background:rgb(70, 70, 70)">
+          Mostrar Horario 
+        </button>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
